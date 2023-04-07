@@ -1,31 +1,49 @@
-class FrontController{
+const BlogModel = require("../models/Blog");
+const CategoryModel=require("../models/Category")
 
-    static home=(req,res)=>{
-        // res.send('homepage')
-        res.render('home')
+class FrontController {
+  static home = async (req, res) => {
+    try {
+      const data = await BlogModel.find();
+      // console.log(data)
+      res.render("home", { d: data });
+    } catch (err) {
+      console.log(err);
     }
+    // res.send('homepage')
+  };
 
-    static about=(req,res)=>{
-        // res.send('aboutpage')
-        res.render('about')
+  static detail = async (req, res) => {
+    try {
+      const data = await BlogModel.findById(req.params.id);
+      const category =await CategoryModel.find()
+      const recentblog=await BlogModel.find()
+      res.render("detail", { d: data,c:category,r:recentblog });
+
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    static blog=(req,res)=>{
-        // res.send('teampage')
-        res.render('blog')
-    }
+  static about = (req, res) => {
+    // res.send('aboutpage')
+    res.render("about");
+  };
 
-    static contact=(req,res)=>{
-        // res.send('contactpage')
-        res.render('contact')
-    }
+  static blog = (req, res) => {
+    // res.send('teampage')
+    res.render("blog");
+  };
 
-    static login=(req,res)=>{
-        // res.send('contactpage')
-        res.render('login')
-    }
+  static contact = (req, res) => {
+    // res.send('contactpage')
+    res.render("contact");
+  };
 
-
+  static login = (req, res) => {
+    // res.send('contactpage')
+    res.render("login");
+  };
 }
 
-module.exports=FrontController
+module.exports = FrontController;
