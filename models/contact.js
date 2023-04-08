@@ -1,7 +1,7 @@
 const mongoose = require ('mongoose')
 
 
-// define schema
+// define schemas
 const ContactSchema = new mongoose.Schema({
     name:{
         type:String,
